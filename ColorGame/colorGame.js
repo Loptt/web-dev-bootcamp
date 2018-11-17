@@ -2,6 +2,7 @@ var colorAmount = 6;
 var backColor = "#232323";
 var highlightColor = "steelblue";
 var colors = [];
+var score = 0;
 
 var squares = document.querySelectorAll(".square");
 var colorDisplay = document.querySelector("#colorDisplay");
@@ -9,8 +10,10 @@ var messageDisplay = document.querySelector("#message");
 var h1 = document.querySelector("h1");
 var resetButton = document.querySelector("#reset");
 var modeButtons = document.querySelectorAll(".mode");
+var socreDisplay = document.querySelector("#score");
 
 var pickedColor;
+var won = false;
 
 function newGame() {
     colors = generateRandomColors(colorAmount);
@@ -29,6 +32,7 @@ function newGame() {
     }
 
     h1.style.backgroundColor = highlightColor;
+    won = false;
 }
 
 function setup() {
@@ -53,11 +57,18 @@ function setup() {
                 messageDisplay.textContent = "Correct";
                 changeColors(clickedColor);
                 h1.style.backgroundColor = pickedColor;
-                resetButton.textContent = "Play Again?"
+                resetButton.textContent = "Play Again?";
+                if (!won) {
+                    score += 100;
+                }
+                won = true;
             } else {
                 this.style.backgroundColor = backColor;
                 messageDisplay.textContent = "Try Again";
+                score -= 50;
             }
+
+            socreDisplay.textContent = score;
         });
     }
 
